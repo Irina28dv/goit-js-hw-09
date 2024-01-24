@@ -5,4 +5,4 @@ import{S as s}from"./assets/vendor-870f0eb5.js";(function(){const a=document.cre
             </a>
         </li>
     `).join("");c.innerHTML=l;new s(".gallery a",{captionsData:"alt",captionDelay:250});document.addEventListener("DOMContentLoaded",function(){const t=document.querySelector(".feedback-form");if(t){t.addEventListener("submit",function(i){i.preventDefault();const r=t.querySelector('input[name="email"]').value,e=t.querySelector('textarea[name="message"]').value;localStorage.setItem("feedback-form-state",JSON.stringify({email:r,message:e})),t.querySelector('input[name="email"]').value="",t.querySelector('textarea[name="message"]').value="",console.log({email:r,message:e})});const a=JSON.parse(localStorage.getItem("feedback-form-state"));a&&(t.querySelector('input[name="email"]').value=a.email,t.querySelector('textarea[name="message"]').value=a.message)}});
-//# sourceMappingURL=commonHelpers.js.map
+//# sourceMappingURL=commonHelpers3.js.map
