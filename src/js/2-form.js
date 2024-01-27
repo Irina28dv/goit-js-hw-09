@@ -1,29 +1,43 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('.feedback-form');
+const feedbackForm = document.querySelector('.feedback-form');
+const emailForm = document.querySelector('[name="email"]');
+const messageForm = document.querySelector('[name="message"]');
 
-    if (form) {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Отримуємо значення полів форми
-            const emailValue = form.querySelector('input[name="email"]').value;
-            const messageValue = form.querySelector('textarea[name="message"]').value;
+// Додано слухача подій для введення на формі
+feedbackForm.addEventListener('input', event => {
+  const email = emailForm.value.trim(); // Додано .trim() для видалення пробілів
+  const message = messageForm.value.trim(); // Додано .trim() для видалення пробілів
 
-            // Зберігаємо значення у локальне сховище
-            localStorage.setItem('feedback-form-state', JSON.stringify({ email: emailValue, message: messageValue }));
+  const myObject = {
+    email: email,
+    message: message,
+  };
 
-            // Очищаємо поля форми
-            form.querySelector('input[name="email"]').value = '';
-            form.querySelector('textarea[name="message"]').value = '';
+  localStorage.setItem('feedback-form-state', JSON.stringify(myObject));
+});
 
-            // Виводимо об'єкт у консоль (це можна замінити реальною логікою)
-            console.log({ email: emailValue, message: messageValue });
-        });
+// Переміщено код зчитування даних з локального сховища в слухача input
+const savedFeedback = localStorage.getItem('feedback-form-state');
+if (savedFeedback !== null) {
+  const parsedFeedback = JSON.parse(savedFeedback);
+  emailForm.value = parsedFeedback.email;
+  messageForm.value = parsedFeedback.message;
+}
 
-        // Відновлюємо значення полів форми при завантаженні сторінки
-        const savedState = JSON.parse(localStorage.getItem('feedback-form-state'));
-        if (savedState) {
-            form.querySelector('input[name="email"]').value = savedState.email;
-            form.querySelector('textarea[name="message"]').value = savedState.message;
-        }
-    }
+// Слухач події submit на формі
+feedbackForm.addEventListener('submit', event => {
+  event.preventDefault();
+
+  const submittedEmail = emailForm.value.trim(); // Додано .trim() для видалення пробілів
+  const submittedMessage = messageForm.value.trim(); // Додано .trim() для видалення пробілів
+
+  console.log({
+    email: submittedEmail,
+    message: submittedMessage,
+  });
+
+  emailForm.value = '';
+  messageForm.value = '';
+
+  // Очищення локального сховища
+  localStorage.removeItem('feedback-form-state');
 });
