@@ -1,4 +1,4 @@
-const feedbackForm = document.querySelector('.feedback-form');
+const feedbackForm = document.querySelector('.feedback');
 const emailForm = document.querySelector('[name="email"]');
 const messageForm = document.querySelector('[name="message"]');
 
