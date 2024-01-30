@@ -1,11 +1,11 @@
-const feedbackForm = document.querySelector('.feedback');
+const feedbackForm = document.querySelector('.feedback-form');
 const emailForm = document.querySelector('[name="email"]');
 const messageForm = document.querySelector('[name="message"]');
 
 // Додано слухача подій для введення на формі
 feedbackForm.addEventListener('input', event => {
-  const email = emailForm.value.trim(); // Додано .trim() для видалення пробілів
-  const message = messageForm.value.trim(); // Додано .trim() для видалення пробілів
+  const email = emailForm.value.trim();
+  const message = messageForm.value.trim();
 
   const myObject = {
     email: email,
@@ -27,17 +27,23 @@ if (savedFeedback !== null) {
 feedbackForm.addEventListener('submit', event => {
   event.preventDefault();
 
-  const submittedEmail = emailForm.value.trim(); // Додано .trim() для видалення пробілів
-  const submittedMessage = messageForm.value.trim(); // Додано .trim() для видалення пробілів
+  const submittedEmail = emailForm.value.trim();
+  const submittedMessage = messageForm.value.trim();
 
-  console.log({
-    email: submittedEmail,
-    message: submittedMessage,
-  });
+  // Додано перевірку на заповненість полів форми
+  if (submittedEmail && submittedMessage) {
+    console.log({
+      email: submittedEmail,
+      message: submittedMessage,
+    });
 
-  emailForm.value = '';
-  messageForm.value = '';
+    emailForm.value = '';
+    messageForm.value = '';
 
-  // Очищення локального сховища
-  localStorage.removeItem('feedback-form-state');
+    // Очищення локального сховища
+    localStorage.removeItem('feedback-form-state');
+  } else {
+    alert('Please fill in both email and message fields before submitting.');
+  }
 });
+
